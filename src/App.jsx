@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 function App() {
   const movies = [
     { id: 1, title: "Inception", genre: "Fantascienza" },
@@ -7,6 +9,7 @@ function App() {
     { id: 5, title: "Interstellar", genre: "Fantascienza" },
     { id: 6, title: "Pulp Fiction", genre: "Thriller" },
   ];
+  const [movie, setMovie] = useState(movies)
 
   return (
     <>
@@ -14,7 +17,7 @@ function App() {
         <h1 className="text-white text-center my-3">🎬 Lista Film</h1>
         <ul class="list-group">
           {
-            movies.map(item =>
+            movie.map(item =>
               <li class="list-group-item bg-light rounded-0" key={item.id}>
                 {item.title} – <em className="text-secondary">{item.genre}</em>
               </li>
