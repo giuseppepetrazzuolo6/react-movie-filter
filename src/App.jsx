@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const movies = [
@@ -10,13 +10,23 @@ function App() {
     { id: 6, title: "Pulp Fiction", genre: "Thriller" },
   ];
   const [movie, setMovie] = useState(movies)
+  const [selectedGenre, setSelectedGenre] = useState('')
+
+  useEffect(() => {
+    if (selectedGenre === '') {
+      setMovie(movies)
+    } else {
+      const filtered = movies.filter(movie => movie.genre === selectedGenre)
+      setMovie(filtered)
+    }
+  }, [selectedGenre])
 
   return (
     <>
       <div className="container">
         <h1 className="text-white text-center my-3">🎬 Lista Film</h1>
         <div className="card p-3">
-          <select className="form-select mb-3" aria-label="Default select example">
+          <select className="form-select mb-3" aria-label="Default select example" value={selectedGenre} onChange={(e) => setSelectedGenre(e.target.value)}>
             <option value="">Tutti i generi</option>
             <option value="Fantascienza">Fantascienza</option>
             <option value="Thriller">Thriller</option>
