@@ -12,6 +12,13 @@ function App() {
   const [movie, setMovie] = useState(movies)
   const [selectedGenre, setSelectedGenre] = useState('')
 
+  const genres = [];
+  movies.forEach(movie => {
+    if (!genres.includes(movie.genre)) {
+      genres.push(movie.genre);
+    }
+  });
+
   useEffect(() => {
     if (selectedGenre === '') {
       setMovie(movies)
@@ -28,16 +35,17 @@ function App() {
         <div className="card p-3">
           <select className="form-select mb-3" aria-label="Default select example" value={selectedGenre} onChange={(e) => setSelectedGenre(e.target.value)}>
             <option value="">Tutti i generi</option>
-            <option value="Fantascienza">Fantascienza</option>
-            <option value="Thriller">Thriller</option>
-            <option value="Romantico">Romantico</option>
-            <option value="Azione">Azione</option>
+            {
+              genres.map(item =>
+                <option value={item}>{item}</option>
+              )
+            }
           </select>
           <ul className="list-group">
             {
               movie.map(item =>
                 <li className="list-group-item bg-light rounded-0" key={item.id}>
-                  {item.title} – <em className="text-secondary">{item.genre}</em>
+                  {item.title} - <em className="text-secondary">{item.genre}</em>
                 </li>
               )
             }
